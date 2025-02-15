@@ -2,111 +2,211 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Fadiga para Motoristas</title>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Estilos Gerais */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
             text-align: center;
-            padding: 10px;
-            background: #f4f4f4;
+            padding: 20px;
+            margin: 0;
         }
+
         h1 {
-            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 2.5rem;
         }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #2ecc71;
+            color: #fff;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+        }
+
+        /* Área de Testes */
         #testArea {
             display: none;
-            max-width: 400px;
-            margin: auto;
-            width: 100%;
+            margin-top: 20px;
         }
+
         .testBox {
             display: none;
-            margin: 15px auto;
-            padding: 20px;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 90%;
+            margin: 20px auto;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            max-width: 500px;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .testBox:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Caixa de Reação */
         .reactionBox {
-            width: 100px;
-            height: 100px;
-            background-color: gray;
+            width: 200px;
+            height: 200px;
+            background-color: #3498db;
             display: none;
             margin: 20px auto;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .reactionBox.active {
-            background-color: red;
+            background-color: #e74c3c;
         }
+
+        .reactionBox:hover {
+            transform: scale(1.05);
+        }
+
+        /* Teste de Cores */
         .colorOptions {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 15px;
+            margin-top: 20px;
         }
+
         .colorButton {
-            padding: 15px;
-            font-size: 20px;
-            width: 100px;
+            width: 80px;
+            height: 80px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            background: #007bff;
-            color: white;
+            border-radius: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .colorButton:hover {
-            background: #0056b3;
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
-        input {
+
+        /* Teste de Memória */
+        #memoryInput {
             padding: 10px;
-            font-size: 18px;
+            font-size: 1rem;
             width: 80%;
-            text-align: center;
-            border-radius: 5px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: border-color 0.3s ease;
         }
-        button {
-            padding: 12px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 80%;
-            max-width: 300px;
+
+        #memoryInput:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* Teste de Reflexo Auditivo */
+        #soundButton {
+            background-color: #3498db;
+        }
+
+        #soundButton:hover {
+            background-color: #2980b9;
+        }
+
+        /* Teste de Tolerância à Fadiga */
+        .fatigueQuestion {
+            margin-bottom: 20px;
+        }
+
+        .fatigueQuestion label {
+            display: block;
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .fatigueQuestion input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        .fatigueQuestion input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* Resultado Final */
+        #finalResult {
+            background-color: #ecf0f1;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        #finalEvaluation {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Mensagens de Feedback */
+        .feedback {
             margin-top: 10px;
-        }
-        .startButton {
-            background: green;
-            color: white;
-        }
-        .startButton:hover {
-            background: darkgreen;
+            font-size: 1rem;
+            color: #555;
         }
     </style>
 </head>
 <body>
 
-    <h1>Teste de Reação Cognitiva para Motoristas</h1>
-    <button id="startTest" class="startButton">Iniciar Teste</button>
+    <h1>Teste de Fadiga para Motoristas</h1>
+    <p>Este teste avalia sua aptidão para dirigir, considerando possíveis sinais de fadiga. Por favor, realize-o antes de iniciar sua jornada.</p>
+    <button id="startTest">Iniciar Teste</button>
 
     <div id="testArea">
 
         <!-- Teste 1: Tempo de Reação -->
         <div id="test1" class="testBox">
-            <p id="test1Message">Aguarde o sinal...</p>
+            <p id="test1Message">Aguarde o sinal e clique o mais rápido possível quando a caixa mudar de cor.</p>
             <div id="reactionBox" class="reactionBox" onclick="recordReaction()"></div>
+            <p class="feedback" id="reactionFeedback"></p>
         </div>
 
         <!-- Teste 2: Identificação de Cores -->
         <div id="test2" class="testBox">
             <p id="colorQuestion"></p>
             <div class="colorOptions">
-                <button class="colorButton" onclick="checkColor('red')">Vermelho</button>
-                <button class="colorButton" onclick="checkColor('blue')">Azul</button>
-                <button class="colorButton" onclick="checkColor('green')">Verde</button>
+                <button class="colorButton" style="background-color: red;" onclick="checkColor('red')"></button>
+                <button class="colorButton" style="background-color: blue;" onclick="checkColor('blue')"></button>
+                <button class="colorButton" style="background-color: green;" onclick="checkColor('green')"></button>
             </div>
+            <p class="feedback" id="colorFeedback"></p>
         </div>
 
         <!-- Teste 3: Memória -->
@@ -114,13 +214,34 @@
             <p id="memorySequence"></p>
             <input type="text" id="memoryInput" placeholder="Digite a sequência">
             <button onclick="checkMemory()">Enviar</button>
+            <p class="feedback" id="memoryFeedback"></p>
         </div>
 
-        <!-- Teste 4: Reflexo Auditivo (Corrigido) -->
+        <!-- Teste 4: Reflexo Auditivo -->
         <div id="test4" class="testBox">
-            <p>Clique em "Iniciar Teste" e aguarde o som.</p>
-            <button id="startSoundTest" onclick="startAudioTest()">Iniciar Teste</button>
+            <p>Aguarde o som e clique no botão o mais rápido possível!</p>
             <button id="soundButton" onclick="recordAudioReaction()" disabled>Reagir!</button>
+            <p class="feedback" id="audioFeedback"></p>
+        </div>
+
+        <!-- Teste 5: Tolerância à Fadiga -->
+        <div id="test5" class="testBox">
+            <h2>Teste de Tolerância à Fadiga</h2>
+            <p>Responda às perguntas abaixo para avaliar seu estado atual.</p>
+            <div class="fatigueQuestion">
+                <label for="sleepiness">1. Em uma escala de 0 a 10, quão sonolento você está agora?</label>
+                <input type="number" id="sleepiness" min="0" max="10" required>
+            </div>
+            <div class="fatigueQuestion">
+                <label for="fatigue">2. Em uma escala de 0 a 10, quão cansado fisicamente você está agora?</label>
+                <input type="number" id="fatigue" min="0" max="10" required>
+            </div>
+            <div class="fatigueQuestion">
+                <label for="concentration">3. Em uma escala de 0 a 10, quão difícil está sendo se concentrar agora?</label>
+                <input type="number" id="concentration" min="0" max="10" required>
+            </div>
+            <button onclick="recordFatigueTest()">Enviar Respostas</button>
+            <p class="feedback" id="fatigueFeedback"></p>
         </div>
 
         <!-- Resultado Final -->
@@ -136,7 +257,23 @@
     <script>
         let startTime, reactionBoxTimeout, correctColor, memorySequence;
         let results = [];
-        let passCount = 0;
+        let totalScore = 0;
+
+        // Limiares de avaliação
+        const thresholds = {
+            reactionTime: 600, // Tempo de reação máximo aceitável (ms)
+            memory: true, // Memória deve estar correta
+            audioReaction: 600, // Tempo de reação auditiva máximo aceitável (ms)
+            fatigue: 15 // Pontuação máxima para o teste de fadiga
+        };
+
+        // Pesos dos testes
+        const weights = {
+            reactionTime: 2,
+            memory: 1,
+            audioReaction: 2,
+            fatigue: 3
+        };
 
         document.getElementById("startTest").addEventListener("click", () => {
             document.getElementById("startTest").style.display = "none";
@@ -158,7 +295,12 @@
         function recordReaction() {
             let reactionTime = new Date().getTime() - startTime;
             results.push(`Tempo de Reação: ${reactionTime} ms`);
-            if (reactionTime < 600) passCount++;
+            if (reactionTime < thresholds.reactionTime) {
+                totalScore += weights.reactionTime;
+                document.getElementById("reactionFeedback").textContent = "✅ Tempo de reação dentro do esperado!";
+            } else {
+                document.getElementById("reactionFeedback").textContent = "❌ Tempo de reação lento!";
+            }
             document.getElementById("test1").style.display = "none";
             startColorTest();
         }
@@ -166,13 +308,27 @@
         function startColorTest() {
             document.getElementById("test2").style.display = "block";
             let colors = ["red", "blue", "green"];
-            correctColor = colors[Math.floor(Math.random() * colors.length)];
-            document.getElementById("colorQuestion").textContent = `Selecione a cor: ${correctColor.toUpperCase()}`;
+            let colorNames = ["Vermelho", "Azul", "Verde"];
+            let randomIndex = Math.floor(Math.random() * colors.length);
+            correctColor = colors[randomIndex];
+
+            // Escolhe uma cor aleatória para o texto (diferente da cor correta)
+            let textColor = colors[Math.floor(Math.random() * colors.length)];
+            while (textColor === correctColor) {
+                textColor = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            // Adiciona a descrição "Selecione a cor: " antes da cor
+            document.getElementById("colorQuestion").innerHTML = `Selecione a cor: <span style="color: ${textColor};">${colorNames[randomIndex]}</span>`;
         }
 
         function checkColor(choice) {
-            if (choice === correctColor) passCount++;
-            results.push(choice === correctColor ? "Cor correta!" : "Cor errada!");
+            if (choice === correctColor) {
+                totalScore += weights.memory;
+                document.getElementById("colorFeedback").textContent = "✅ Cor correta!";
+            } else {
+                document.getElementById("colorFeedback").textContent = "❌ Cor errada!";
+            }
             document.getElementById("test2").style.display = "none";
             startMemoryTest();
         }
@@ -188,22 +344,21 @@
 
         function checkMemory() {
             let userInput = document.getElementById("memoryInput").value;
-            if (userInput === memorySequence) passCount++;
-            results.push(userInput === memorySequence ? "Memória correta!" : "Memória errada!");
+            if (userInput === memorySequence) {
+                totalScore += weights.memory;
+                document.getElementById("memoryFeedback").textContent = "✅ Memória correta!";
+            } else {
+                document.getElementById("memoryFeedback").textContent = "❌ Memória errada!";
+            }
             document.getElementById("test3").style.display = "none";
             startAudioTest();
         }
 
         function startAudioTest() {
-            document.getElementById("startSoundTest").disabled = true;
-            document.getElementById("soundButton").disabled = true;
-
+            document.getElementById("test4").style.display = "block";
             let delay = Math.random() * 3000 + 2000;
-
             setTimeout(() => {
-                let beepSound = new Audio("https://www.soundjay.com/button/beep-07.wav");
-                beepSound.play().catch(error => console.log("Erro ao tocar som:", error));
-
+                new Audio("beep.mp3").play(); // Reproduz o áudio local
                 startTime = new Date().getTime();
                 document.getElementById("soundButton").disabled = false;
             }, delay);
@@ -212,12 +367,60 @@
         function recordAudioReaction() {
             let reactionTime = new Date().getTime() - startTime;
             results.push(`Reação Auditiva: ${reactionTime} ms`);
-            if (reactionTime < 600) passCount++;
+            if (reactionTime < thresholds.audioReaction) {
+                totalScore += weights.audioReaction;
+                document.getElementById("audioFeedback").textContent = "✅ Reação auditiva rápida!";
+            } else {
+                document.getElementById("audioFeedback").textContent = "❌ Reação auditiva lenta!";
+            }
             document.getElementById("test4").style.display = "none";
+            startFatigueTest();
+        }
+
+        function startFatigueTest() {
+            document.getElementById("test5").style.display = "block";
+        }
+
+        function recordFatigueTest() {
+            let sleepiness = parseInt(document.getElementById("sleepiness").value);
+            let fatigue = parseInt(document.getElementById("fatigue").value);
+            let concentration = parseInt(document.getElementById("concentration").value);
+
+            if (isNaN(sleepiness) || isNaN(fatigue) || isNaN(concentration)) {
+                alert("Por favor, preencha todas as respostas.");
+                return;
+            }
+
+            let fatigueScore = sleepiness + fatigue + concentration;
+            results.push(`Pontuação de Fadiga: ${fatigueScore}`);
+
+            if (fatigueScore <= thresholds.fatigue) {
+                totalScore += weights.fatigue;
+                document.getElementById("fatigueFeedback").textContent = "✅ Nível de fadiga aceitável!";
+            } else {
+                document.getElementById("fatigueFeedback").textContent = "❌ Nível de fadiga elevado!";
+            }
+            document.getElementById("test5").style.display = "none";
             showFinalResults();
+        }
+
+        function showFinalResults() {
+            document.getElementById("finalResult").style.display = "block";
+            document.getElementById("resultText").innerHTML = results.join("<br>");
+
+            // Classificação final
+            if (totalScore >= 8) {
+                document.getElementById("finalEvaluation").innerHTML = "✅ APTO para dirigir!";
+                document.getElementById("finalEvaluation").style.color = "green";
+            } else if (totalScore >= 5) {
+                document.getElementById("finalEvaluation").innerHTML = "⚠️ APTO COM RESTRIÇÕES! Dirija com cautela.";
+                document.getElementById("finalEvaluation").style.color = "orange";
+            } else {
+                document.getElementById("finalEvaluation").innerHTML = "❌ NÃO APTO! Descanse antes de dirigir.";
+                document.getElementById("finalEvaluation").style.color = "red";
+            }
         }
     </script>
 
 </body>
 </html>
-
