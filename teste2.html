@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Fadiga para Motoristas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #testArea {
+            display: none;
+        }
+        .testBox {
+            display: none;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #000;
+            max-width: 400px;
+            background: #f4f4f4;
+        }
+        .reactionBox {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+            display: none;
+            margin: 20px auto;
+            cursor: pointer;
+        }
+        .reactionBox.active {
+            background-color: red;
+        }
+        .colorOptions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .colorButton {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Teste de Reação Cognitiva para Motoristas</h1>
+    <button id="startTest">Iniciar Teste</button>
+
+    <div id="testArea">
+
+        <!-- Teste 1: Tempo de Reação -->
+        <div id="test1" class="testBox">
+            <p id="test1Message">Aguarde o sinal...</p>
+            <div id="reactionBox" class="reactionBox" onclick="recordReaction()"></div>
+        </div>
+
+        <!-- Teste 2: Identificação de Cores -->
+        <div id="test2" class="testBox">
+            <p id="colorQuestion"></p>
+            <div class="colorOptions">
+                <button class="colorButton" onclick="checkColor('red')">Vermelho</button>
+                <button class="colorButton" onclick="checkColor('blue')">Azul</button>
+                <button class="colorButton" onclick="checkColor('green')">Verde</button>
+            </div>
+        </div>
+
+        <!-- Teste 3: Memória -->
+        <div id="test3" class="testBox">
+            <p id="memorySequence"></p>
+            <input type="text" id="memoryInput" placeholder="Digite a sequência">
+            <button onclick="checkMemory()">Enviar</button>
+        </div>
+
+        <!-- Teste 4: Reflexo Auditivo -->
+        <div id="test4" class="testBox">
+            <p>Aguarde o som e clique no botão!</p>
+            <button id="soundButton" onclick="recordAudioReaction()" disabled>Reagir!</button>
+        </div>
+
+        <!-- Resultado Final -->
+        <div id="finalResult" class="testBox">
+            <h2>Resultados Finais</h2>
+            <p id="resultText"></p>
+            <h2 id="finalEvaluation"></h2>
+            <button onclick="location.reload()">Reiniciar Teste</button>
+        </div>
+
+    </div>
+
+    <script>
+        let startTime, reactionBoxTimeout, correctColor, memorySequence;
+        let results = [];
+        let passCount = 0;
+
+        document.getElementById("startTest").addEventListener("click", () => {
+            document.getElementById("startTest").style.display = "none";
+            document.getElementById("testArea").style.display = "block";
+            startReactionTest();
+        });
+
+        function startReactionTest() {
+            document.getElementById("test1").style.display = "block";
+            let delay = Math.random() * 3000 + 2000;
+            reactionBoxTimeout = setTimeout(() => {
+                document.getElementById("reactionBox").style.display = "block";
+                document.getElementById("reactionBox").classList.add("active");
+                document.getElementById("test1Message").textContent = "Clique agora!";
+                startTime = new Date().getTime();
+            }, delay);
+        }
+
+        function recordReaction() {
+            let reactionTime = new Date().getTime() - startTime;
+            results.push(`Tempo de Reação: ${reactionTime} ms`);
+            if (reactionTime < 600) passCount++;
+            document.getElementById("test1").style.display = "none";
+            startColorTest();
+        }
+
+        function startColorTest() {
+            document.getElementById("test2").style.display = "block";
+            let colors = ["red", "blue", "green"];
+            correctColor = colors[Math.floor(Math.random() * colors.length)];
+            document.getElementById("colorQuestion").textContent = `Selecione a cor: ${correctColor.toUpperCase()}`;
+        }
+
+        function checkColor(choice) {
+            if (choice === correctColor) passCount++;
+            results.push(choice === correctColor ? "Cor correta!" : "Cor errada!");
+            document.getElementById("test2").style.display = "none";
+            startMemoryTest();
+        }
+
+        function startMemoryTest() {
+            document.getElementById("test3").style.display = "block";
+            memorySequence = Math.floor(1000 + Math.random() * 9000).toString();
+            document.getElementById("memorySequence").textContent = `Memorize: ${memorySequence}`;
+            setTimeout(() => {
+                document.getElementById("memorySequence").textContent = "Digite a sequência:";
+            }, 2000);
+        }
+
+        function checkMemory() {
+            let userInput = document.getElementById("memoryInput").value;
+            if (userInput === memorySequence) passCount++;
+            results.push(userInput === memorySequence ? "Memória correta!" : "Memória errada!");
+            document.getElementById("test3").style.display = "none";
+            startAudioTest();
+        }
+
+        function startAudioTest() {
+            document.getElementById("test4").style.display = "block";
+            let delay = Math.random() * 3000 + 2000;
+            setTimeout(() => {
+                new Audio("https://www.soundjay.com/button/beep-07.wav").play();
+                startTime = new Date().getTime();
+                document.getElementById("soundButton").disabled = false;
+            }, delay);
+        }
+
+        function recordAudioReaction() {
+            let reactionTime = new Date().getTime() - startTime;
+            results.push(`Reação Auditiva: ${reactionTime} ms`);
+            if (reactionTime < 600) passCount++;
+            document.getElementById("test4").style.display = "none";
+            showFinalResults();
+        }
+
+        function showFinalResults() {
+            document.getElementById("finalResult").style.display = "block";
+            document.getElementById("resultText").innerHTML = results.join("<br>");
+            
+            if (passCount >= 4) {
+                document.getElementById("finalEvaluation").innerHTML = "✅ APTO para dirigir!";
+                document.getElementById("finalEvaluation").style.color = "green";
+            } else {
+                document.getElementById("finalEvaluation").innerHTML = "❌ NÃO APTO! Descanse antes de dirigir.";
+                document.getElementById("finalEvaluation").style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
