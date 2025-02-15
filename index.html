@@ -10,15 +10,31 @@
         /* Estilos Gerais */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0f4f8;
             color: #333;
             text-align: center;
             padding: 20px;
             margin: 0;
+            background-image: url('https://solucoesscania.com.br/wp-content/uploads/2024/05/heavy-tipper-10x4-1.jpg'); /* URL da imagem de fundo */
+            background-size: cover; /* Cobrir toda a tela */
+            background-position: center; /* Centralizar a imagem */
+            background-repeat: no-repeat; /* Evitar repetição */
+            background-attachment: fixed; /* Fixar o fundo ao rolar a página */
+        }
+
+        /* Sobreposição escura para melhorar a legibilidade */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Sobreposição escura */
+            z-index: -1; /* Colocar atrás do conteúdo */
         }
 
         h1 {
-            color: #2c3e50;
+            color: #fff; /* Texto branco para contraste */
             margin-bottom: 20px;
             font-weight: 600;
             font-size: 2.5rem;
@@ -26,7 +42,7 @@
 
         p {
             font-size: 1.1rem;
-            color: #555;
+            color: #fff; /* Texto branco para contraste */
         }
 
         button {
@@ -58,7 +74,7 @@
             border: 1px solid #ddd;
             border-radius: 20px;
             max-width: 500px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -144,7 +160,8 @@
         .fatigueQuestion label {
             display: block;
             font-size: 1rem;
-            color: #555;
+            color: #000; /* Cor preta */
+            font-weight: 600; /* Negrito */
             margin-bottom: 5px;
         }
 
@@ -164,7 +181,7 @@
 
         /* Resultado Final */
         #finalResult {
-            background-color: #ecf0f1;
+            background-color: rgba(236, 240, 241, 0.9); /* Fundo semi-transparente */
             padding: 30px;
             border-radius: 20px;
         }
@@ -180,6 +197,12 @@
             margin-top: 10px;
             font-size: 1rem;
             color: #555;
+        }
+
+        /* Descrições das perguntas em preto e negrito */
+        .testBox p {
+            color: #000; /* Cor preta */
+            font-weight: 600; /* Negrito */
         }
     </style>
 </head>
