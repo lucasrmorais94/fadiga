@@ -2,32 +2,41 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Teste de Fadiga para Motoristas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: 10px;
+            background: #f4f4f4;
+        }
+        h1 {
+            font-size: 24px;
         }
         #testArea {
             display: none;
+            max-width: 400px;
+            margin: auto;
+            width: 100%;
         }
         .testBox {
             display: none;
-            margin: 20px auto;
+            margin: 15px auto;
             padding: 20px;
-            border: 2px solid #000;
-            max-width: 400px;
-            background: #f4f4f4;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
         }
         .reactionBox {
-            width: 200px;
-            height: 200px;
+            width: 100px;
+            height: 100px;
             background-color: gray;
             display: none;
             margin: 20px auto;
             cursor: pointer;
+            border-radius: 10px;
         }
         .reactionBox.active {
             background-color: red;
@@ -35,19 +44,52 @@
         .colorOptions {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
         }
         .colorButton {
-            padding: 10px 20px;
+            padding: 15px;
+            font-size: 20px;
+            width: 100px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            background: #007bff;
+            color: white;
+        }
+        .colorButton:hover {
+            background: #0056b3;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 80%;
+            text-align: center;
+            border-radius: 5px;
+        }
+        button {
+            padding: 12px;
             font-size: 18px;
             cursor: pointer;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            margin-top: 10px;
+        }
+        .startButton {
+            background: green;
+            color: white;
+        }
+        .startButton:hover {
+            background: darkgreen;
         }
     </style>
 </head>
 <body>
 
     <h1>Teste de Reação Cognitiva para Motoristas</h1>
-    <button id="startTest">Iniciar Teste</button>
+    <button id="startTest" class="startButton">Iniciar Teste</button>
 
     <div id="testArea">
 
@@ -74,9 +116,10 @@
             <button onclick="checkMemory()">Enviar</button>
         </div>
 
-        <!-- Teste 4: Reflexo Auditivo -->
+        <!-- Teste 4: Reflexo Auditivo (Corrigido) -->
         <div id="test4" class="testBox">
-            <p>Aguarde o som e clique no botão!</p>
+            <p>Clique em "Iniciar Teste" e aguarde o som.</p>
+            <button id="startSoundTest" onclick="startAudioTest()">Iniciar Teste</button>
             <button id="soundButton" onclick="recordAudioReaction()" disabled>Reagir!</button>
         </div>
 
@@ -152,10 +195,15 @@
         }
 
         function startAudioTest() {
-            document.getElementById("test4").style.display = "block";
+            document.getElementById("startSoundTest").disabled = true;
+            document.getElementById("soundButton").disabled = true;
+
             let delay = Math.random() * 3000 + 2000;
+
             setTimeout(() => {
-                new Audio("https://www.soundjay.com/button/beep-07.wav").play();
+                let beepSound = new Audio("https://www.soundjay.com/button/beep-07.wav");
+                beepSound.play().catch(error => console.log("Erro ao tocar som:", error));
+
                 startTime = new Date().getTime();
                 document.getElementById("soundButton").disabled = false;
             }, delay);
@@ -168,20 +216,8 @@
             document.getElementById("test4").style.display = "none";
             showFinalResults();
         }
-
-        function showFinalResults() {
-            document.getElementById("finalResult").style.display = "block";
-            document.getElementById("resultText").innerHTML = results.join("<br>");
-            
-            if (passCount >= 4) {
-                document.getElementById("finalEvaluation").innerHTML = "✅ APTO para dirigir!";
-                document.getElementById("finalEvaluation").style.color = "green";
-            } else {
-                document.getElementById("finalEvaluation").innerHTML = "❌ NÃO APTO! Descanse antes de dirigir.";
-                document.getElementById("finalEvaluation").style.color = "red";
-            }
-        }
     </script>
 
 </body>
 </html>
+
