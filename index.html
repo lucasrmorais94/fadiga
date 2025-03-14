@@ -394,9 +394,9 @@
             document.getElementById("startAudioTest").style.display = "none";
             let delay = Math.random() * 3000 + 2000;
             setTimeout(() => {
-                let audio = new Audio("https://www.soundjay.com/button/beep-07.mp3");
+                let audio = new Audio("buzina.mp3");
                 audio.volume = 1.0; // Define o volume para o máximo (100%)
-                audio.play("https://www.soundjay.com/button/beep-07.mp3"); // Reproduz o áudio    
+                audio.play(); // Reproduz o áudio    
                 startTime = new Date().getTime();
                 document.getElementById("soundButton").disabled = false;
             }, delay);
