@@ -254,6 +254,7 @@
         <!-- Teste 4: Reflexo Auditivo -->
         <div id="test4" class="testBox">
             <p>Aguarde o som e clique no botão o mais rápido possível!</p>
+            <button id="startAudioTest" onclick="startAudioTest()">Iniciar Teste de Áudio</button>
             <button id="soundButton" onclick="recordAudioReaction()" disabled>Reagir!</button>
             <p class="feedback" id="audioFeedback"></p>
         </div>
@@ -390,9 +391,12 @@
 
         function startAudioTest() {
             document.getElementById("test4").style.display = "block";
+            document.getElementById("startAudioTest").style.display = "none";
             let delay = Math.random() * 3000 + 2000;
             setTimeout(() => {
-                new Audio("beep.mp3").play(); // Reproduz o áudio local
+                let audio = new Audio("https://www.soundjay.com/button/beep-07.mp3");
+                audio.volume = 1.0; // Define o volume para o máximo (100%)
+                audio.play("https://www.soundjay.com/button/beep-07.mp3"); // Reproduz o áudio    
                 startTime = new Date().getTime();
                 document.getElementById("soundButton").disabled = false;
             }, delay);
